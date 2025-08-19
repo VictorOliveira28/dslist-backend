@@ -9,25 +9,24 @@ import java.util.Objects;
 public class Belonging {
 
     @EmbeddedId
-   private BelongingPK id = new BelongingPK();
+    private BelongingPK id = new BelongingPK();
 
-   private Integer position;
+    private Integer position;
 
-    public Belonging() {
-    }
-
-    public Belonging(Game game, GameList list, Integer position) {
+    public void setGame(Game game) {
         id.setGame(game);
+    }
+
+    public Game getGame() {
+        return id.getGame();
+    }
+
+    public void setList(GameList list) {
         id.setList(list);
-        this.position = position;
     }
 
-    public BelongingPK getId() {
-        return id;
-    }
-
-    public void setId(BelongingPK id) {
-        this.id = id;
+    public GameList getList() {
+        return id.getList();
     }
 
     public Integer getPosition() {
@@ -39,14 +38,19 @@ public class Belonging {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        Belonging belonging = (Belonging) o;
-        return Objects.equals(id, belonging.id);
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hashCode(id);
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Belonging other = (Belonging) obj;
+        return Objects.equals(id, other.id);
     }
 }
